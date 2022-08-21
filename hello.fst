@@ -45,6 +45,9 @@ let _ : nat = id nat 0
 let _ : string = id string "hello"
 let _ : int -> int = id (int -> int) (id int)
 
+let apply (a b : Type) f : (a -> b) -> (a -> b) = fun x -> f x
+let compose (a b c : Type) f g : (b -> c) -> (a -> b) -> (a -> c) = fun x -> f (g x)
+
 (*
 # Local Variables:
 # compile-command: "fstar.exe hello.fst"
