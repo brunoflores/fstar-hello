@@ -1,9 +1,11 @@
 module Hello
 
+
 type vec (a:Type) : nat -> Type =
 | Nil : vec a 0
 | Cons : #n:nat -> hd:a -> tl:vec a n -> vec a (n+1)
 
+(* a n and m are implicit arguments *)
 let rec append #a #n #m (v1:vec a n) (v2:vec a m)
 : vec a (n+m)
 = match v1 with
@@ -47,6 +49,8 @@ let _ : int -> int = id (int -> int) (id int)
 
 let apply (a b : Type) f : (a -> b) -> (a -> b) = fun x -> f x
 let compose (a b c : Type) f g : (b -> c) -> (a -> b) -> (a -> c) = fun x -> f (g x)
+
+let _ = 17 <: x : int {x >= 0}
 
 (*
 # Local Variables:
