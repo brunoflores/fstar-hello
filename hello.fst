@@ -24,6 +24,20 @@ let rec get #a #n (i:nat{i<n}) (v:vec a n) : a =
   if i = 0 then hd
   else get (i-1) tl
 
+type account = {processed : bool}
+let processed = x:account{x.processed = true} (* boolean refinement type *)
+(* processed is a subtype of account *)
+
+(* How to use refinement subtyping to introduce and eliminate refinement
+   types. *)
+
+let incr = fun (x:int) -> x + 1
+let incr' x = x + 1
+let incr'' x = x + 1 <: int
+let incr''' (x : int) : (y : int { y = x + 1}) = x + 1
+
+let (/) (x : int) (divisor : int { divisor <> 0 }) = x / divisor
+
 (*
 # Local Variables:
 # compile-command: "fstar.exe hello.fst"
