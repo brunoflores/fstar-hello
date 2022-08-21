@@ -38,6 +38,13 @@ let incr''' (x : int) : (y : int { y = x + 1}) = x + 1
 
 let (/) (x : int) (divisor : int { divisor <> 0 }) = x / divisor
 
+let id (a:Type) (x:a) : a = x
+let _ : bool = id bool true
+let _ :int = id int (-1)
+let _ : nat = id nat 0
+let _ : string = id string "hello"
+let _ : int -> int = id (int -> int) (id int)
+
 (*
 # Local Variables:
 # compile-command: "fstar.exe hello.fst"
