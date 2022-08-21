@@ -63,6 +63,12 @@ let _ = assert (forall x y. max x y >= x /\
                        max x y >= y /\
                        (max x y = x \/ max x y = y))
 
+(* CARE: assumptions *)
+let sqr_is_pos (x:int) = assume (x <> 0); assert (x * x > 0)
+(* Like assert, the type of assume p is unit *)
+(* The term admit () type to anything: *)
+let sqr_is_pos' (x:int) : y:nat{y > 0} = admit ()
+
 (*
 forall (x:nat) (y:nat). x % y = 0 ==> (exists (z:nat). x = z * y
 *)
