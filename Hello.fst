@@ -50,7 +50,22 @@ let _ : int -> int = id (int -> int) (id int)
 let apply (a b : Type) f : (a -> b) -> (a -> b) = fun x -> f x
 let compose (a b c : Type) f g : (b -> c) -> (a -> b) -> (a -> c) = fun x -> f (g x)
 
+(* prove that 17 is >= 0 *)
 let _ = 17 <: x : int {x >= 0}
+let _ = assert (17 >= 0) (* static assertion *)
+
+open FStar.Mul
+let sqr_is_nat (x:int) : unit = assert (x * x >= 0) (* static assertion *)
+
+let max x y = if x > y then x else y
+let _ = assert (max 0 1 = 1)
+let _ = assert (forall x y. max x y >= x /\
+                       max x y >= y /\
+                       (max x y = x \/ max x y = y))
+
+(*
+forall (x:nat) (y:nat). x % y = 0 ==> (exists (z:nat). x = z * y
+*)
 
 (*
 # Local Variables:
