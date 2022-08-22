@@ -185,6 +185,14 @@ let rec fib (a b n:nat)
 | _ -> fib b (a+b) (n-1)
 let fibonacci (n:nat) : nat = fib 1 1 n
 
+(* Tail-recursive reversal: *)
+let rec rev_aux #a (l1 l2:list a)
+: Tot (list a) (decreases l2)
+= match l2 with
+| [] -> l1
+| hd :: tl -> rev_aux (hd :: l1) tl
+let rev #a (l:list a) : list a = rev_aux [] l
+
 
 (*
 # Local Variables:
