@@ -98,6 +98,18 @@ let only_two_as_int (x:three { not (Three_of_three? x) }) : int
 | One_of_three -> 1
 | Two_of_three -> 2
 
+(* Tuple *)
+type tup2 (a:Type) (b:Type) =
+| Tup2 : fst:a -> snd:b -> tup2 a b
+(* Project the components with a match: *)
+let tup2_fst #a #b (x:tup2 a b) : a
+= match x with
+| Tup2 fst _ -> fst
+(* Generated projectors: *)
+let my_tup2 = Tup2 "Bruno" 88
+let fst = Tup2?.fst my_tup2
+let snd = Tup2?.snd my_tup2
+
 
 (*
 # Local Variables:
