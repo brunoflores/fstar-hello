@@ -193,6 +193,21 @@ let rec rev_aux #a (l1 l2:list a)
 | hd :: tl -> rev_aux (hd :: l1) tl
 let rev #a (l:list a) : list a = rev_aux [] l
 
+(* Lemmas and proofs by induction: *)
+let rec factorial (n:nat) : nat
+= match n with
+| 0 -> 1
+| n -> n * factorial (n-1)
+let rec factorial_is_pos (x:int)
+: Lemma (requires x >= 0)
+        (ensures factorial x > 0)
+= if x=0 then ()
+  else factorial_is_pos (x-1)
+let rec factorial_is_greater_than_arg (x:int)
+: Lemma (requires x > 2)
+        (ensures factorial x > x)
+= if x=3 then ()
+  else factorial_is_greater_than_arg (x-1)
 
 (*
 # Local Variables:
