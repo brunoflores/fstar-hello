@@ -69,9 +69,35 @@ let sqr_is_pos (x:int) = assume (x <> 0); assert (x * x > 0)
 (* The term admit () type to anything: *)
 let sqr_is_pos' (x:int) : y:nat{y > 0} = admit ()
 
-(*
-forall (x:nat) (y:nat). x % y = 0 ==> (exists (z:nat). x = z * y
-*)
+type three =
+| One_of_three : three
+| Two_of_three : three
+| Three_of_three : three
+(* prove that they are distinct *)
+let distinct = assert (One_of_three <> Two_of_three /\
+                       Two_of_three <> Three_of_three /\
+                       Three_of_three <> One_of_three)
+(* prove that they are the only terms of the type *)
+let exhaustive (x:three) = assert (x = One_of_three \/
+                                   x = Two_of_three \/
+                                   x = Three_of_three)
+(* match like in OCaml *)
+let is_one (x:three) : bool
+= match x with
+| One_of_three -> true
+| _ -> false
+(* Discriminator: for every constructor T of an inductive type t, F* generates
+   a function name T? which test if a v:t matches T. *)
+let three_as_int (x:three) : int
+= if One_of_three? x then 1
+  else if Two_of_three? x then 2
+  else 3
+(* Exhaustiveness checking in F* is a semantic check and can use the SMT solver: *)
+let only_two_as_int (x:three { not (Three_of_three? x) }) : int
+= match x with
+| One_of_three -> 1
+| Two_of_three -> 2
+
 
 (*
 # Local Variables:
