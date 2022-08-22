@@ -177,6 +177,14 @@ and incr_node (n:node) : node
   right = incr_tree n.right;
 }
 
+(* Fibonacci in linear time: *)
+let rec fib (a b n:nat)
+: Tot nat (decreases n)
+= match n with
+| 0 -> a
+| _ -> fib b (a+b) (n-1)
+let fibonacci (n:nat) : nat = fib 1 1 n
+
 
 (*
 # Local Variables:
