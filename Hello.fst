@@ -132,6 +132,24 @@ let sum (x:either bool int) (y:either bool int {same_case x y})
 | Inl xl, Inl yl -> Inl (xl || yl)
 | Inr xr, Inr yr -> Inr (xr + yr)
 
+(* Lists: *)
+(* NOTE that F* is implicitly proving termination. *)
+let rec length #a (l:list a) : nat
+= match l with
+| [] -> 0
+| _ :: tl -> 1 + length tl
+let rec append' #a (l1 l2:list a)
+: l:list a {length l = length l1 + length l2}
+= match l1 with
+| [] -> l2
+| hd :: tl -> hd :: append' tl l2
+(* Length spelled out: *)
+let rec length' #a (l:list a)
+: Tot nat (decreases l)
+= match l with
+| [] -> 0
+| _ :: tl -> 1 + length' tl (* #a:Type -> m:list a {m << l} -> nat *)
+
 
 (*
 # Local Variables:
