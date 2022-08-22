@@ -157,6 +157,26 @@ let rec ackerman (m n:nat)
   else if n=0 then ackerman (m-1) 1
   else ackerman (m-1) (ackerman m (n-1))
 
+(* Mutual recursion: *)
+type tree =
+| Terminal : tree
+| Internal : node -> tree
+and node = {
+  left : tree;
+  data : int;
+  right : tree;
+}
+let rec incr_tree (x:tree) : tree
+= match x with
+| Terminal -> Terminal
+| Internal node -> Internal (incr_node node)
+and incr_node (n:node) : node
+= {
+  left = incr_tree n.left;
+  data = n.data + 1;
+  right = incr_tree n.right;
+}
+
 
 (*
 # Local Variables:
