@@ -150,6 +150,13 @@ let rec length' #a (l:list a)
 | [] -> 0
 | _ :: tl -> 1 + length' tl (* #a:Type -> m:list a {m << l} -> nat *)
 
+(* Lexicographic orderings: *)
+let rec ackerman (m n:nat)
+: Tot nat (decreases %[m;n])
+= if m=0 then n+1
+  else if n=0 then ackerman (m-1) 1
+  else ackerman (m-1) (ackerman m (n-1))
+
 
 (*
 # Local Variables:
