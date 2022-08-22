@@ -110,6 +110,16 @@ let my_tup2 = Tup2 "Bruno" 88
 let fst = Tup2?.fst my_tup2
 let snd = Tup2?.snd my_tup2
 
+(* Records: *)
+type point3D = { x:int; y:int; z:int }
+let origin = { x=0; y=0; z=0 }
+let dot (p0 p1:point3D) = p0.x * p1.x + p0.y * p1.y + p0.z * p1.z
+let translate_X (p:point3D) (shift:int) = { p with x = p.x + shift }
+let is_origin (x:point3D)
+= match x with
+| { x=0; y=0; z=0 } -> true
+| _ -> false
+
 
 (*
 # Local Variables:
