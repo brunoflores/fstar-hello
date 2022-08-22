@@ -120,6 +120,18 @@ let is_origin (x:point3D)
 | { x=0; y=0; z=0 } -> true
 | _ -> false
 
+(* Unions: *)
+let same_case #a #b #c #d (x:either a b) (y:either c d) : bool
+= match x, y with
+| Inl _, Inl _
+| Inr _, Inr _ -> true
+| _ -> false
+let sum (x:either bool int) (y:either bool int {same_case x y})
+: z:either bool int {same_case z x}
+= match x, y with
+| Inl xl, Inl yl -> Inl (xl || yl)
+| Inr xr, Inr yr -> Inr (xr + yr)
+
 
 (*
 # Local Variables:
